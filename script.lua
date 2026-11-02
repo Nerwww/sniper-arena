@@ -961,7 +961,11 @@ local function initToolkit()
     end))
 
     pcall(function() RunService:UnbindFromRenderStep("SniperMisc") end)
-    track(RunService:BindThreadSafe and RunService:BindToRenderStep("SniperMisc", Enum.RenderPriority.Character.Value + 1, function()
+    pcall(function() RunService:UnbindFromRenderStep("SniperMisc") end)
+track(RunService:BindToRenderStep("SniperMisc", Enum.RenderPriority.Character.Value + 1, function()
+    if Killed then return end
+    updateMisc()
+end))
         if Killed then return end
         updateMisc()
     end) or RunService:BindToRenderStep("SniperMisc", Enum.RenderPriority.Character.Value + 1, function()
